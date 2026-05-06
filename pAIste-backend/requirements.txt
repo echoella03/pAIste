@@ -1,5 +1,6 @@
-torch==2.2.1
-torchvision==0.17.1
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.2.1+cpu
+torchvision==0.17.1+cpu
 ultralytics
 fastapi
 uvicorn
