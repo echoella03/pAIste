@@ -21,8 +21,8 @@ CNN_CLASS_NAMES = [
     "Ipil-ipil", "Nile tilapia", "Walking catfish", "Water hyacinth",
 ]
 
-YOLO_CONFIDENCE_THRESHOLD = 0.80
-CNN_CONFIDENCE_THRESHOLD  = 0.80
+YOLO_CONFIDENCE_THRESHOLD = 0.35
+CNN_CONFIDENCE_THRESHOLD  = 0.75
 RESNET_INPUT_SIZE = (224, 224)
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
