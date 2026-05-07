@@ -7,3 +7,4 @@ python-multipart
 sqlmodel
 psycopg2-binary
 supabase
+pydantic-settings
