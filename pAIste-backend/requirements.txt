@@ -4,7 +4,9 @@ ultralytics
 fastapi
 uvicorn
 python-multipart
-sqlmodel
 psycopg2-binary
 supabase
-pydantic-settings
+pydantic-settings==2.2.1
+sqlmodel==0.0.16
+passlib[bcrypt]==1.7.4
+python-jose[cryptography]==3.3.0
