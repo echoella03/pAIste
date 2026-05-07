@@ -1,21 +1,14 @@
-# Machine Learning Core
 torch
 torchvision
 ultralytics
 Pillow
-
-# Backend Framework
 fastapi
 uvicorn
 python-multipart
 email-validator
-
-# Database & Environment
 sqlmodel==0.0.16
 psycopg2-binary
 supabase
 pydantic-settings==2.2.1
-
-# Security & Auth
 passlib[bcrypt]==1.7.4
 python-jose[cryptography]==3.3.0
