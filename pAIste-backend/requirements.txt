@@ -10,3 +10,4 @@ pydantic-settings==2.2.1
 sqlmodel==0.0.16
 passlib[bcrypt]==1.7.4
 python-jose[cryptography]==3.3.0
+email-validator
