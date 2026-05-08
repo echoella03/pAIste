@@ -10,7 +10,7 @@ sqlmodel==0.0.14
 psycopg2-binary
 supabase
 pydantic==1.10.13
-pydantic-settings==0.2.5
+pydantic-settings==2.0.3
 passlib[bcrypt]==1.7.4
 python-jose[cryptography]==3.3.0
 python-dotenv
