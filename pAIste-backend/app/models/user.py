@@ -1,12 +1,12 @@
 from typing import Optional
 from sqlmodel import SQLModel, Field
-from datetime import datetime
+from datetime import datetime, timezone
 
 class User(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str
     email: str = Field(unique=True, index=True)
     password_hash: str
-    role: str = Field(default="user")  # "user" or "admin"
+    role: str = Field(default="user")  
     is_active: bool = Field(default=True)
-    created_at: datetime = Field(default_factory=datetime.utcnow)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
