@@ -53,7 +53,7 @@ class ReportOut(BaseModel):
     notes: Optional[str]
     status: str
     admin_remarks: Optional[str]
-    submitted_at: datetime
+    created_at: datetime   
     reviewed_at: Optional[datetime]
     detections: List[DetectionResult] = []
     
