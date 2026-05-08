@@ -1,6 +1,6 @@
 from typing import Optional
 from sqlmodel import SQLModel, Field
-from datetime import datetime
+from datetime import datetime, timezone
 
 class Report(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
@@ -9,13 +9,12 @@ class Report(SQLModel, table=True):
     gps_lat: float
     gps_lng: float
     location_name: Optional[str] = None
-    # Add this line below 
-    location_source: str = Field(default="manual") # "auto" or "manual"
+    location_source: str = Field(default="manual")
     notes: Optional[str] = None
-    status: str = Field(default="pending") # "pending", "validated", "rejected"
+    status: str = Field(default="pending") 
     admin_remarks: Optional[str] = None
     reviewed_by: Optional[int] = Field(default=None, foreign_key="user.id")
-    submitted_at: datetime = Field(default_factory=datetime.utcnow)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     reviewed_at: Optional[datetime] = None
 
 class Detection(SQLModel, table=True):
@@ -27,7 +26,7 @@ class Detection(SQLModel, table=True):
     bbox_data: Optional[str] = None
     yolo_label: Optional[str] = None
     cnn_label: Optional[str] = None
-    detected_at: datetime = Field(default_factory=datetime.utcnow)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 class MCTSScore(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
@@ -37,4 +36,4 @@ class MCTSScore(SQLModel, table=True):
     spread_rate: float
     detection_frequency: float
     threat_level: str
-    computed_at: datetime = Field(default_factory=datetime.utcnow)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
