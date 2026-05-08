@@ -15,7 +15,7 @@ if os.path.exists("uploads"):
     app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
 origins = [
-    "https://pAIste-frontend.onrender.com", 
+    "https://paiste.onrender.com", 
     "http://localhost:5173", 
     "http://localhost:3000"
 ]
