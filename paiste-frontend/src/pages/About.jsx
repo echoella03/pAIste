@@ -63,7 +63,7 @@ export default function About() {
               <strong>1. Detection (YOLOv8):</strong> Scans the environment to locate potential organisms in real-time and isolates them for analysis.
             </li>
             <li>
-              <strong>2. Classification (ResNet50):</strong> ResNet-50 is a deep neural network that uses residual learning, which task is to perform high-accuracy classification to identify the specific invasive species among 17 priority targets.
+              <strong>2. Classification (ResNet50):</strong> A deep neural network that uses residual learning, which task is to perform high-accuracy classification to the specific invasive species among 17 targets.
             </li>
             <li>
               <strong>3. Mapping & Analytics:</strong> Confirmed detections are tagged with location data and visualized on an interactive dashboard to track species distribution across the Davao landscape.
