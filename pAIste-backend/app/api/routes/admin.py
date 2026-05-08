@@ -63,7 +63,7 @@ def get_all_reports(
     Get all reports. Optionally filter by status:
     pending | validated | rejected
     """
-    query = select(Report).order_by(Report.submitted_at.desc())
+    query = select(Report).order_by(Report.created_at.desc())
     if status:
         query = query.where(Report.status == status)
     reports = session.exec(query).all()
