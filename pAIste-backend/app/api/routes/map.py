@@ -47,7 +47,7 @@ def get_map_detections(
             species_name=primary.species_name,
             threat_level=mcts.threat_level if mcts else None,
             status=report.status,
-            detected_at=report.submitted_at,
+            detected_at=report.created_at,
         ))
 
     return points
