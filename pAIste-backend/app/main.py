@@ -15,8 +15,9 @@ if os.path.exists("uploads"):
     app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
 origins = [
-    "https://p-a-iste-gqpxiacmt-echoella03s-projects.vercel.app", 
-    "http://localhost:3000",
+    "https://pAIste-frontend.onrender.com", 
+    "http://localhost:5173", 
+    "http://localhost:3000"
 ]
 
 app.add_middleware(
