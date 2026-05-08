@@ -178,7 +178,7 @@ def seed():
                     location_name=location["name"], location_source="manual",
                     status="validated", admin_remarks="Historical trend record verified.",
                     reviewed_by=admin_user.id, 
-                    submitted_at=random_report_date, reviewed_at=random_review_date
+                    reviewed_at=random_review_date
                 )
                 session.add(report)
                 session.commit()
@@ -188,7 +188,7 @@ def seed():
                     report_id=report.id, species_id=matched_species.id,
                     species_name=matched_species.name, confidence_score=conf,
                     bbox_data="[50, 50, 300, 300]", yolo_label="IAS",
-                    cnn_label=matched_species.name, detected_at=random_report_date
+                    cnn_label=matched_species.name
                 )
                 session.add(detection)
                 
