@@ -21,8 +21,9 @@ CNN_CLASS_NAMES = [
     "Ipil-ipil", "Nile tilapia", "Walking catfish", "Water hyacinth",
 ]
 
-YOLO_CONFIDENCE_THRESHOLD = 0.35
+YOLO_CONFIDENCE_THRESHOLD = 0.35 
 CNN_CONFIDENCE_THRESHOLD  = 0.75
+MIN_LOGIT_MARGIN = 7.3
 RESNET_INPUT_SIZE = (224, 224)
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -80,13 +81,25 @@ def run_detection_with_image(image_path: str) -> Tuple[List[dict], str]:
             if x2 <= x1 or y2 <= y1:
                 continue
 
-            is_yolo_accepted = yolo_conf >= YOLO_CONFIDENCE_THRESHOLD
+            is_yolo_accepted = yolo_conf > YOLO_CONFIDENCE_THRESHOLD
 
             crop = image.crop((x1, y1, x2, y2))
-            species_name, cnn_conf = _classify_crop(crop)
+            
+            species_name, cnn_conf, logit_margin = _classify_crop(crop)
 
-            is_cnn_accepted = cnn_conf >= CNN_CONFIDENCE_THRESHOLD
+            is_cnn_accepted = (cnn_conf > CNN_CONFIDENCE_THRESHOLD) and (logit_margin > MIN_LOGIT_MARGIN)
             is_accepted = is_yolo_accepted and is_cnn_accepted
+
+            rejection_reason = ""
+            if not is_accepted:
+                if not is_yolo_accepted:
+                    rejection_reason = "Low YOLO"
+                elif logit_margin < MIN_LOGIT_MARGIN:
+                    rejection_reason = "Unknown" 
+                else:
+                    rejection_reason = "Low CNN"
+
+            print(f"YOLO: {yolo_conf:.2f} | Detected: {species_name} | Softmax: {cnn_conf:.2f} | Margin Gap: {logit_margin:.2f} | Status: {'Accepted' if is_accepted else rejection_reason}")
 
             det_obj = {
                 "species_name": species_name,
@@ -97,7 +110,7 @@ def run_detection_with_image(image_path: str) -> Tuple[List[dict], str]:
                 "cnn_label": species_name,
                 "accepted": is_accepted,
                 "rejected": not is_accepted,
-                "rejection_reason": "" if is_accepted else ("Low YOLO" if not is_yolo_accepted else "Low CNN")
+                "rejection_reason": rejection_reason
             }
 
             detections.append(det_obj)
@@ -106,17 +119,30 @@ def run_detection_with_image(image_path: str) -> Tuple[List[dict], str]:
     annotated = _draw_boxes(image, visualization_list)
     return detections, _to_base64(annotated)
 
-def _classify_crop(crop: Image.Image) -> Tuple[str, float]:
+def _classify_crop(crop: Image.Image) -> Tuple[str, float, float]:
     cnn_model.eval()
     input_tensor = resnet_transform(crop).unsqueeze(0).to(DEVICE)
+    temperature = 2.0 
     
     with torch.no_grad():
         logits = cnn_model(input_tensor)
-        probs  = F.softmax(logits, dim=1)
-        conf, idx = torch.max(probs, dim=1)
+
+        scaled_logits = logits / temperature 
+        
+        probs  = F.softmax(scaled_logits, dim=1)
+        
+        top2_probs, top2_idx = torch.topk(probs, 2, dim=1)
+        top2_logits, _ = torch.topk(logits, 2, dim=1) 
+        
+        conf = top2_probs[0, 0].item()
+        idx = top2_idx[0, 0].item()
+        
+        max_logit = top2_logits[0, 0].item()
+        second_logit = top2_logits[0, 1].item()
+        logit_margin = max_logit - second_logit
     
-    species = CNN_CLASS_NAMES[idx.item()]
-    return species, conf.item()
+    species = CNN_CLASS_NAMES[idx]
+    return species, conf, logit_margin
 
 def _draw_boxes(image: Image.Image, boxes: List[dict]) -> Image.Image:
     draw = ImageDraw.Draw(image)
