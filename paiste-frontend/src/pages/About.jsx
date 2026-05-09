@@ -48,7 +48,7 @@ export default function About() {
           <button onClick={() => navigate('/register')} className="text-white font-londrina tracking-wider text-xs md:text-m hover:text-green-300">REGISTER</button>
         </div>
       </nav>
-
+      
       {/* Main Content */}
       <div className="max-w-5xl mx-auto px-6 py-12 space-y-12">
         
