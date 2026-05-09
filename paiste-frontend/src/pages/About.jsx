@@ -32,16 +32,19 @@ export default function About() {
   const navigate = useNavigate();
 
   return (
-    {/* Navbar */}
-     <div className="min-h-screen flex flex-col" style={{ backgroundColor: 'white' }}>
-       <nav className="navbar-dark px-8 py-3 flex items-center justify-between">
-         <div className="flex items-center gap-3">                                     
-           <img src="/pAIste-logo.png" alt="pAIste" className="h-10 w-10 object-contain" />
-           <span className="font-londrina text-white text-m tracking-widest hidden md:block">
-             INVASIVE ALIEN SPECIES DETECTION SYSTEM     
+    <div className="min-h-screen flex flex-col" style={{ backgroundColor: 'white' }}>
+      
+      {/* Navbar - Original Structure Preserved */}
+      <nav className="navbar-dark px-4 md:px-8 py-3 flex items-center justify-between shrink-0">
+        <div className="flex items-center gap-3">
+          <img src="/pAIste-logo.png" alt="pAIste" className="h-10 w-10 object-contain shrink-0" />
+          <span className="font-londrina text-white text-m tracking-widest hidden md:block">
+            INVASIVE ALIEN SPECIES DETECTION SYSTEM
           </span>
         </div>
-        <div className="flex items-center gap-6">
+        
+        {/* Adjusted gap for mobile (gap-3) vs desktop (gap-6) to prevent overflow */}
+        <div className="flex items-center gap-3 md:gap-6 shrink-0">
           <button onClick={() => navigate('/')} className="text-white font-londrina tracking-wider text-xs md:text-m hover:text-green-300">HOME</button>
           <button onClick={() => navigate('/about')} className="text-white font-londrina tracking-wider text-xs md:text-m hover:text-green-300 border-b-2 border-green-300">ABOUT</button>
           <button onClick={() => navigate('/login')} className="text-white font-londrina tracking-wider text-xs md:text-m hover:text-green-300">LOGIN</button>
@@ -49,49 +52,36 @@ export default function About() {
         </div>
       </nav>
 
-      {/* Main Content */}
-      <div className="max-w-5xl mx-auto px-6 py-12 space-y-12">
+      {/* Content Area */}
+      <div className="max-w-4xl mx-auto px-6 py-12 space-y-8">
         
-        {/* Project Info Sections */}
-        <div className="grid grid-cols-1 gap-8">
-          <section className="rounded-2xl p-6 md:p-8 shadow-sm bg-[#FAFAF4]">
-            <h2 className="font-nerko text-3xl text-center mb-4 text-[#0D3A24]">What is pAIste?</h2>
-            <p className="font-manjari text-gray-700 text-center leading-relaxed">
-              <strong>pAIste</strong> is a web-based monitoring and analytics platform developed to protect the unique
-              biodiversity of the Davao Region (Region XI). Our system addresses the ecological threat of Invasive
-              Alien Species (IAS) by providing an automated tool for real-time identification and geographical
-              mapping.
-            </p>
-          </section>
+        <section className="rounded-2xl p-8 shadow-sm bg-[#FAFAF4]">
+          <h2 className="font-nerko text-3xl text-center mb-4 text-[#0D3A24]">What is pAIste?</h2>
+          <p className="font-manjari text-gray-700 text-center leading-relaxed">
+            <strong>pAIste</strong> is a web-based monitoring and analytics platform developed to protect the unique
+            biodiversity of the Davao Region (Region XI). Our system addresses the ecological threat of Invasive
+            Alien Species (IAS) by providing an automated tool for real-time identification and geographical mapping.
+          </p>
+        </section>
 
-          <section className="rounded-2xl p-6 md:p-8 shadow-sm bg-[#FAFAF4]">
-            <h2 className="font-nerko text-3xl text-center mb-4 text-[#0D3A24]">Technical Workflow</h2>
-            <div className="space-y-4 font-manjari text-gray-700">
-              <div className="flex gap-4">
-                <span className="font-bold text-[#466958]">01</span>
-                <p><strong>Detection (YOLOv8):</strong> Scans the environment to locate potential organisms in real-time.</p>
-              </div>
-              <div className="flex gap-4">
-                <span className="font-bold text-[#466958]">02</span>
-                <p><strong>Classification (ResNet50):</strong> A deep neural network that uses residual learning and is designed to perform high-accuracy classification of specific invasive species among the 17 target classes.</p>
-              </div>
-              <div className="flex gap-4">
-                <span className="font-bold text-[#466958]">03</span>
-                <p><strong>Mapping & Analytics:</strong> Visualizes distribution data across the Davao landscape.</p>
-              </div>
-            </div>
-          </section>
-        </div>
+        <section className="rounded-2xl p-8 shadow-sm bg-[#FAFAF4]">
+          <h2 className="font-nerko text-3xl text-center mb-4 text-[#0D3A24]">Technical Workflow</h2>
+          <ol className="space-y-3 font-manjari text-gray-700">
+            <li><strong>1. Detection (YOLOv8):</strong> Scans the environment to locate organisms.</li>
+            <li><strong>2. Classification (ResNet50):</strong> Performs high-accuracy classification of species.</li>
+            <li><strong>3. Mapping & Analytics:</strong> Location tagging and interactive visualization.</li>
+          </ol>
+        </section>
 
-        {/* Team Section */}
-        <section className="rounded-2xl p-6 md:p-10 shadow-sm bg-[#FAFAF4]">
-          <h2 className="font-nerko text-4xl text-center mb-12 text-[#0D3A24]">Development Team</h2>
+        {/* Development Team Section */}
+        <section className="rounded-2xl p-8 shadow-sm bg-[#FAFAF4]">
+          <h2 className="font-nerko text-3xl text-center mb-10 text-[#0D3A24]">Development Team</h2>
           
-          {/* Student Members Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-16">
+          {/* Top Row: Students */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             {team.slice(0, 3).map((member) => (
-              <div key={member.name} className="flex flex-col items-center text-center group">
-                <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden bg-gray-200 mb-4 shadow-md transition-transform group-hover:scale-105">
+              <div key={member.name} className="flex flex-col items-center text-center">
+                <div className="w-32 h-32 rounded-full overflow-hidden bg-gray-200 mb-4 shadow">
                   <img
                     src={member.photo}
                     alt={member.name}
@@ -102,32 +92,30 @@ export default function About() {
                     }}
                   />
                 </div>
-                <p className="font-manjari font-bold text-gray-800 text-lg">{member.name}</p>
+                <p className="font-manjari font-bold text-gray-800">{member.name}</p>
                 <p className="font-londrina text-xs tracking-widest mt-1 text-[#466958]">{member.role}</p>
-                <p className="font-manjari text-gray-500 text-sm mt-3 italic px-2">{member.desc}</p>
+                <p className="font-manjari text-gray-500 text-sm mt-2 italic px-2">{member.desc}</p>
               </div>
             ))}
           </div>
 
-          {/* Thesis Adviser - Centered Below */}
-          <div className="flex justify-center border-t border-gray-200 pt-12">
-            <div className="flex flex-col items-center text-center max-w-sm group">
-              <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden bg-gray-200 mb-4 shadow-lg border-4 border-[#466958] transition-transform group-hover:scale-105">
+          {/* Bottom Row: Adviser (Centered) */}
+          <div className="flex justify-center border-t border-gray-100 pt-8">
+            <div className="flex flex-col items-center text-center max-w-xs">
+              <div className="w-32 h-32 rounded-full overflow-hidden bg-gray-200 mb-4 shadow border-2 border-[#466958]">
                 <img
                   src={team[3].photo}
                   alt={team[3].name}
                   className="w-full h-full object-cover"
                   onError={e => {
                     e.target.style.display = 'none';
-                    e.target.parentElement.style.background = '#0D3A24';
+                    e.target.parentElement.style.background = '#466958';
                   }}
                 />
               </div>
-              <p className="font-manjari font-bold text-gray-800 text-lg">{team[3].name}</p>
+              <p className="font-manjari font-bold text-gray-800">{team[3].name}</p>
               <p className="font-londrina text-xs tracking-widest mt-1 text-[#0D3A24]">{team[3].role}</p>
-              <p className="font-manjari text-gray-600 text-sm mt-3 italic px-4 font-medium leading-relaxed">
-                {team[3].desc}
-              </p>
+              <p className="font-manjari text-gray-500 text-sm mt-2 italic">{team[3].desc}</p>
             </div>
           </div>
         </section>
