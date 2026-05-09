@@ -15,9 +15,10 @@ if os.path.exists("uploads"):
     app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
 origins = [
-    "https://paiste.onrender.com", 
-    "http://localhost:5173", 
-    "http://localhost:3000"
+    "https://paiste.onrender.com",  # frontend
+    "https://dannieella-paiste-backend.hf.space",  # HF backend
+    "http://localhost:5173",
+    "http://localhost:3000",
 ]
 
 app.add_middleware(
