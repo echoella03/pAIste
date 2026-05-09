@@ -73,7 +73,7 @@ export default function About() {
               </div>
               <div className="flex gap-4">
                 <span className="font-bold text-[#466958]">02</span>
-                <p><strong>Classification (ResNet50):</strong> Performs high-accuracy classification among 17 target species.</p>
+                <p><strong>Classification (ResNet50):</strong> A deep neural network that uses residual learning and is designed to perform high-accuracy classification of specific invasive species among the 17 target classes.</p>
               </div>
               <div className="flex gap-4">
                 <span className="font-bold text-[#466958]">03</span>
