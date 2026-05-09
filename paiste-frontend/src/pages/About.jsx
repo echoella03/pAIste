@@ -32,16 +32,16 @@ export default function About() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
-      {/* Navigation */}
-      <nav className="navbar-dark px-4 md:px-8 py-3 flex items-center justify-between bg-[#0D3A24]">
-        <div className="flex items-center gap-3">
-          <img src="/pAIste-logo.png" alt="pAIste" className="h-10 w-10 object-contain" />
-          <span className="font-londrina text-white text-sm md:text-m tracking-widest hidden sm:block">
-            INVASIVE ALIEN SPECIES DETECTION SYSTEM
+    {/* Navbar */}
+     <div className="min-h-screen flex flex-col" style={{ backgroundColor: 'white' }}>
+       <nav className="navbar-dark px-8 py-3 flex items-center justify-between">
+         <div className="flex items-center gap-3">                                     
+           <img src="/pAIste-logo.png" alt="pAIste" className="h-10 w-10 object-contain" />
+           <span className="font-londrina text-white text-m tracking-widest hidden md:block">
+             INVASIVE ALIEN SPECIES DETECTION SYSTEM     
           </span>
         </div>
-        <div className="flex items-center gap-3 md:gap-6">
+        <div className="flex items-center gap-6">
           <button onClick={() => navigate('/')} className="text-white font-londrina tracking-wider text-xs md:text-m hover:text-green-300">HOME</button>
           <button onClick={() => navigate('/about')} className="text-white font-londrina tracking-wider text-xs md:text-m hover:text-green-300 border-b-2 border-green-300">ABOUT</button>
           <button onClick={() => navigate('/login')} className="text-white font-londrina tracking-wider text-xs md:text-m hover:text-green-300">LOGIN</button>
