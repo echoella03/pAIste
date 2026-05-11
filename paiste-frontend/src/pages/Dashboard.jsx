@@ -258,7 +258,7 @@ function TrendChart({ data, activeLevel, setActiveLevel, onDotClick, selectedMon
           ))}
           
           {data.map((d, i) => (
-            <text key={`x-${i}`} x={xP(i)} y={yP(0) + 18} textAnchor="middle" fontSize="20" fill={C.sage} fontFamily="Londrina Solid">{d.label}</text>
+            <text key={`x-${i}`} x={xP(i)} y={yP(0) + 18} textAnchor="middle" fontSize="16" fill={C.sage} fontFamily="Londrina Solid">{d.label}</text>
           ))}
           
           {levels.map(level => {
@@ -308,7 +308,7 @@ function TrendChart({ data, activeLevel, setActiveLevel, onDotClick, selectedMon
           
           {hover && (
             <g transform={`translate(${hover.cx}, ${hover.cy - 12})`} className="pointer-events-none transition-all z-50">
-              <rect x="-45" y="-42" width="90" height="40" rx="4" fill={C.darkGreen} filter="drop-shadow(0 4px 6px rgba(0,0,0,0.15))" />
+              <rect x="-60" y="-42" width="120" height="40" rx="4" fill={C.darkGreen} filter="drop-shadow(0 4px 6px rgba(0,0,0,0.15))" />
               <polygon points="-5,-3 5,-3 0,2" fill={C.darkGreen} />
               <text x="0" y="-25" textAnchor="middle" fontSize="15" fill={C.bgLight} fontFamily="Londrina Solid tracking-widest">{hover.month} - {hover.level}</text>
               <text x="0" y="-8" textAnchor="middle" fontSize="15" fill="white" fontFamily="Nerko One">{hover.val} Reports</text>
@@ -515,7 +515,7 @@ export default function Dashboard() {
     return baseFilteredMap.filter(p => {
       if (!selectedMonth) return true;
       const d = new Date(p.detected_at);
-      const k = d.toLocaleString('default', { month: 'short' });
+      const k = `${d.toLocaleString('default', { month: 'short' })} '${d.getFullYear().toString().slice(-2)}`;
       return k === selectedMonth;
     });
   }, [baseFilteredMap, selectedMonth])
@@ -538,8 +538,12 @@ export default function Dashboard() {
     const m = {};
     baseFilteredMap.forEach(p => {
       const d = new Date(p.detected_at);
-      const k = d.toLocaleString('default', { month: 'short' });
-      if (!m[k]) m[k] = { label: k, critical: 0, high: 0, moderate: 0, low: 0, sortIdx: d.getMonth() };
+      const month = d.toLocaleString('default', { month: 'short' });
+      const year = d.getFullYear().toString().slice(-2);
+      const k = `${month} '${year}`; 
+      // Calculate a unique absolute index to sort chronologically across multiple years
+      const absoluteSortIndex = d.getFullYear() * 12 + d.getMonth(); 
+      if (!m[k]) m[k] = { label: k, critical: 0, high: 0, moderate: 0, low: 0, sortIdx: absoluteSortIndex };
       
       const officialThreat = speciesThreatMap[p.species_name]?.level || 'low';
       m[k][officialThreat] = (m[k][officialThreat] || 0) + 1;
@@ -553,7 +557,7 @@ export default function Dashboard() {
     const threatFilteredMap = baseFilteredMap.filter(p => {
       if (!selectedMonth) return true;
       const d = new Date(p.detected_at);
-      const k = d.toLocaleString('default', { month: 'short' });
+      const k = `${d.toLocaleString('default', { month: 'short' })} '${d.getFullYear().toString().slice(-2)}`;
       return k === selectedMonth;
     });
 
@@ -616,7 +620,8 @@ export default function Dashboard() {
         
         if (selectedMonth) {
            const d = new Date(rep.submitted_at || rep.created_at);
-           matchM = d.toLocaleString('default', { month: 'short' }) === selectedMonth;
+           const k = `${d.toLocaleString('default', { month: 'short' })} '${d.getFullYear().toString().slice(-2)}`;
+           matchM = k === selectedMonth;
         }
         
         if (matchS && matchM) {
