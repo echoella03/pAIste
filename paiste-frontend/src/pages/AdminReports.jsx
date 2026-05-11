@@ -119,7 +119,7 @@ export default function AdminReports() {
                         Report #{report.id}
                       </p>
                       <p className="font-manjari text-xs text-gray-400">
-                        {new Date(report.submitted_at).toLocaleString()}
+                        {new Date(report.created_at).toLocaleString()}
                       </p>
                     </div>
                     <span className="font-londrina text-xs px-3 py-1 rounded-full tracking-wider"
