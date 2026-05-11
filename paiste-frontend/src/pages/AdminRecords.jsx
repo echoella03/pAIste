@@ -325,7 +325,7 @@ const filteredReports = getSortedData(reports).filter(r => {
                   : '—'}
               </p>
               <p className="font-manjari text-sm text-gray-700">
-                <strong>Date:</strong> {new Date(selectedPhoto.submitted_at).toLocaleString()}
+                <strong>Date:</strong> {new Date(selectedPhoto.created_at).toLocaleString()}
               </p>
               {selectedPhoto.notes && (
                 <p className="font-manjari text-sm text-gray-700">
