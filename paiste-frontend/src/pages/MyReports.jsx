@@ -60,7 +60,7 @@ export default function MyReports() {
                         Report #{report.id}
                       </p>
                       <p className="font-manjari text-[12px] text-gray-400 mt-1">
-                        {new Date(report.submitted_at).toLocaleString()}
+                        {new Date(report.created_at).toLocaleString()}
                       </p>
                     </div>
                     <span className="font-manjari font-bold text-[12px] px-3 py-1.5 rounded-full tracking-wider border shadow-sm"
